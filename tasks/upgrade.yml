@@ -1,0 +1,19 @@
+---
+- name: Upgrade - Upgrade all software.
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: dist
+
+- name: Upgrade - Check if a reboot is required.
+  stat:
+    path: /var/run/reboot-required
+    get_checksum: false
+  register: reboot_required_file
+
+- name: Upgrade - Reboot the server (if required).
+  reboot:
+  when: reboot_required_file.stat.exists == true
+
+- name: Upgrade - Remove dependencies that are no longer required.
+  apt:
+    autoremove: true

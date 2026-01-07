@@ -1,0 +1,12 @@
+---
+packages:
+  - jq
+  - vim
+
+packages_state: present
+
+# For firewall rules
+allowed_from_ips:
+  - 10.0.0.0/8
+  - 172.16.0.0/12
+  - 192.168.0.0/16

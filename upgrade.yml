@@ -1,0 +1,20 @@
+---
+- name: Upgrade primary DNS
+  hosts: primary
+  become: true
+
+  tasks:
+    - name: Include upgrade tasks
+      include_tasks: tasks/upgrade.yml
+    # TODO wait for pihole to start back up before upgrading and possibly rebooting
+    # the secondary??    
+
+# Is important to upgrade the secondary separately so they are not both rebooting
+# at the same time where DNS would be down for the entire network!
+- name: Upgrade secondary DNS
+  hosts: secondary
+  become: true
+
+  tasks:
+    - name: Include upgrade tasks
+      include_tasks: tasks/upgrade.yml

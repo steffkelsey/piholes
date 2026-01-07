@@ -1,0 +1,102 @@
+---
+- name: Firewall - Install UFW
+  ansible.builtin.apt:
+    name: 
+      - ufw
+      - openssh-server
+    state: present
+    update_cache: yes
+
+- name: Firewall - Allow SSH connections
+  community.general.ufw:
+    rule: limit
+    name: OpenSSH
+
+- name: Firewall - Allow HTTP connections
+  community.general.ufw:
+    rule: allow
+    port: "80"
+    proto: tcp
+    from_ip: '{{ item }}'
+  loop: "{{ allowed_from_ips }}"
+
+- name: Firewall - Allow HTTPS connections
+  community.general.ufw:
+    rule: allow
+    port: "443"
+    proto: tcp
+    from_ip: '{{ item }}'
+  loop: "{{ allowed_from_ips }}"
+
+- name: Firewall - Allow DNS/tcp connections
+  community.general.ufw:
+    rule: allow
+    port: "53"
+    proto: tcp
+    from_ip: '{{ item }}'
+  loop: "{{ allowed_from_ips }}"
+    
+- name: Firewall - Allow DNS/udp connections
+  community.general.ufw:
+    rule: allow
+    port: "53"
+    proto: udp
+    from_ip: '{{ item }}'
+  loop: "{{ allowed_from_ips }}"
+
+- name: Firewall - Allow mDNS/tcp connections
+  community.general.ufw:
+    rule: allow
+    port: "5353"
+    proto: tcp
+    from_ip: '{{ item }}'
+  loop: "{{ allowed_from_ips }}"
+    
+- name: Firewall - Allow mDNS/udp connections
+  community.general.ufw:
+    rule: allow
+    port: "5353"
+    proto: udp
+    from_ip: '{{ item }}'
+  loop: "{{ allowed_from_ips }}"
+
+- name: Firewall - Allow DHCP/tcp connections
+  community.general.ufw:
+    rule: allow
+    port: "67"
+    proto: tcp
+    from_ip: '{{ item }}'
+  loop: "{{ allowed_from_ips }}"
+
+- name: Firewall - Allow DHCP/udp connections
+  community.general.ufw:
+    rule: allow
+    port: "67"
+    proto: udp
+    from_ip: '{{ item }}'
+  loop: "{{ allowed_from_ips }}"
+
+- name: Firewall - Allow NTP/udp connections
+  community.general.ufw:
+    rule: allow
+    port: "123"
+    proto: udp
+    from_ip: '{{ item }}'
+  loop: "{{ allowed_from_ips }}"
+
+- name: Allow loopback in 
+  community.general.ufw:
+    rule: allow
+    interface: lo
+    direction: in  
+
+- name: Allow loopback out
+  community.general.ufw:
+    rule: allow
+    interface: lo
+    direction: out
+
+- name: Firewall - Reload and enable firewall w/ deny by default
+  community.general.ufw:
+    state: enabled
+    default: deny
