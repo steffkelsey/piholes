@@ -1,3 +1,4 @@
+# shoutout to https://www.paulcourt.co.uk/articles/2025/unattended-pihole-ansible
 ---
 - name: Pihole - Create pihole group
   ansible.builtin.group:
@@ -43,3 +44,5 @@
   ansible.builtin.shell:
     cmd: pihole -g
   when: pihole_install_cmd_result.changed
+
+# TODO set passwords! pihole setpassword '<password>'
