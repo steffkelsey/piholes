@@ -32,7 +32,7 @@
     owner: pihole
     group: pihole
     mode: "644"
-    force: no
+    force: false
 
 - name: Pihole - Install Pi-hole
   ansible.builtin.shell:

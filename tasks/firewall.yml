@@ -1,11 +1,11 @@
 ---
 - name: Firewall - Install UFW
   ansible.builtin.apt:
-    name: 
+    name:
       - ufw
       - openssh-server
     state: present
-    update_cache: yes
+    update_cache: true
 
 - name: Firewall - Allow SSH connections
   community.general.ufw:
@@ -84,11 +84,11 @@
     from_ip: '{{ item }}'
   loop: "{{ allowed_from_ips }}"
 
-- name: Allow loopback in 
+- name: Allow loopback in
   community.general.ufw:
     rule: allow
     interface: lo
-    direction: in  
+    direction: in
 
 - name: Allow loopback out
   community.general.ufw:

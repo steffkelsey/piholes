@@ -1,18 +1,14 @@
 ---
 - name: Setup all dns nodes
   hosts: dns
-  # There is an issue with molecule in github actions where we need to be able to
-  # turn off become or everything fails in CI.
+  # There is an issue with molecule in github actions where we need to be able
+  # to turn off become or everything fails in CI.
   become: "{{ lookup('ansible.builtin.env', 'GLOBAL_BECOME', default='true') }}"
 
   vars_files:
     - default.config.yml
 
   tasks:
-#    - name: Print all available facts
-#      debug:
-#        var: ansible_facts
-
     - name: Include install packages tasks
       include_tasks: tasks/packages.yml
 
