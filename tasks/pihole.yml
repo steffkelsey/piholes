@@ -1,4 +1,4 @@
-# shoutout to https://www.paulcourt.co.uk/articles/2025/unattended-pihole-ansible
+# shoutout https://www.paulcourt.co.uk/articles/2025/unattended-pihole-ansible
 ---
 - name: Pihole - Create pihole group
   ansible.builtin.group:
