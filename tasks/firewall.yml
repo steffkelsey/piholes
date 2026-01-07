@@ -35,7 +35,7 @@
     proto: tcp
     from_ip: '{{ item }}'
   loop: "{{ allowed_from_ips }}"
-    
+
 - name: Firewall - Allow DNS/udp connections
   community.general.ufw:
     rule: allow
@@ -51,7 +51,7 @@
     proto: tcp
     from_ip: '{{ item }}'
   loop: "{{ allowed_from_ips }}"
-    
+
 - name: Firewall - Allow mDNS/udp connections
   community.general.ufw:
     rule: allow
