@@ -1,0 +1,45 @@
+---
+- name: Pihole - Create pihole group
+  ansible.builtin.group:
+    name: pihole
+    state: present
+
+- name: Pihole - Create pihole user
+  ansible.builtin.user:
+    name: pihole
+    home: "/home/pihole"
+    shell: "/usr/sbin/nologin"
+    comment: "PiHole"
+    group: pihole
+    password: "*"
+    state: present
+    remove: true
+    force: true
+
+- name: Pihole - Create config directory
+  ansible.builtin.file:
+    state: directory
+    path: /etc/pihole
+    owner: pihole
+    group: pihole
+    mode: "775"
+
+- name: Pihole - Copy config file
+  ansible.builtin.copy:
+    src: ../files/pihole.toml
+    dest: /etc/pihole/pihole.toml
+    owner: pihole
+    group: pihole
+    mode: "644"
+    force: no
+
+- name: Pihole - Install Pi-hole
+  ansible.builtin.shell:
+    cmd: curl -sSL https://install.pi-hole.net | bash /dev/stdin --unattended
+    creates: /etc/systemd/system/pihole-FTL.service
+  register: pihole_install_cmd_result
+
+- name: Pihole - Update gravity lists
+  ansible.builtin.shell:
+    cmd: pihole -g
+  when: pihole_install_cmd_result.changed

@@ -33,14 +33,11 @@ configuration in Imager, and set the following options:
 
 - [x] set static ip on each Pi
 
-On my workstation where I will be running Ansible to provision each Pi, I edited
-the ~/.ssh/config file for each Host.
+Raspberry Pi OS starts avahi by default, so when on the same network, you canssh
+ssh into each using the username and hostname. Eg:  
 
-```
-Host dns1.local
-  Hostname 192.168.71.251
-  Port 22 
-  User steff  
+```bash
+ssh steff@dns1.local
 ```
 
 ## Setup Ansible
