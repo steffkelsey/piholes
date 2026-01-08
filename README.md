@@ -11,7 +11,7 @@ Both are powered by Waveshare POE hats and housed in the Waveshare case.
 This repo gives instructions on how to setup the hardware and stops after the 
 basic software is installed.
 
-- [ ] pihole
+- [x] pihole
 
 additional packages  
  - [x] jq  
@@ -33,7 +33,7 @@ configuration in Imager, and set the following options:
 
 - [x] set static ip on each Pi
 
-Raspberry Pi OS starts avahi by default, so when on the same network, you canssh
+Raspberry Pi OS starts avahi by default, so when on the same network, you can
 ssh into each using the username and hostname. Eg:  
 
 ```bash
@@ -84,7 +84,7 @@ To upgrade all the software installed with apt, run
 ansible-playbook upgrade.yml --ask-become-pass
 ```
 
-To set teh pihole passwords on the primary and secondary DNS, run   
+To set the pihole passwords on the primary and secondary DNS, run   
 ```bash
 DNS1_PWD="<password_1>" DNS2_PWD="<password_2>" ansible-playbook setpassword.yml --ask-become-pass
 ```
