@@ -71,7 +71,6 @@ To be sure that Ansible can connect to each node, test with:
 ansible all -m ping
 ```
 
-
 ## Running
 
 To provision all the roles in this repo for the entire pi-cluster in hosts.ini, navigate
@@ -83,6 +82,11 @@ ansible-playbook main.yml --ask-become-pass
 To upgrade all the software installed with apt, run   
 ```bash
 ansible-playbook upgrade.yml --ask-become-pass
+```
+
+To set teh pihole passwords on the primary and secondary DNS, run   
+```bash
+DNS1_PWD="<password_1>" DNS2_PWD="<password_2>" ansible-playbook setpassword.yml --ask-become-pass
 ```
 
 ## Tests
